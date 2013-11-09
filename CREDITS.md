@@ -1,0 +1,1 @@
+Use this file to keep track of assets that require credit be given to the author.
