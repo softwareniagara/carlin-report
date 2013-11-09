@@ -11,10 +11,11 @@
     "url": "git@github.com:nko4/software-niagara.git"
   },
   "dependencies": {
-    "express": "~3.3.4",
-    "nko": "*",
-    "jade": "~0.34.0",
-    "mongoose": "~3.8.1-pre"
+    "express": "~3.3.4"
+    , "nko": "*"
+    , "jade": "~0.34.0"
+    , "mongoose": "~3.8.0"
+    , "mongoose-validate": "~0.0.5"
   },
   "engines": {
     "node": "0.10.x"
