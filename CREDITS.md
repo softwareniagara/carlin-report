@@ -1,5 +1,9 @@
 Use this file to keep track of assets that require credit be given to the author.
 
+GEOSPATIAL
+============================================
+Mobile-friendly interactive maps thans to [Leaflet](http://leaflet.js/)
+
 ICONS
 ============================================
 
