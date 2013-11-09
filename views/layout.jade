@@ -2,7 +2,10 @@ doctype 5
 html
   head
     title= title
-    link(rel='stylesheet', href='/css/style.css')
+    script(src='/js/modernizr.js')
     script(src='http://localhost:35729/livereload.js')
+    link(rel='stylesheet', href='/css/app.min.css')
   body
     block content
+    script(src='/js/app.min.js')
+
