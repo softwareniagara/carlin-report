@@ -1,0 +1,23 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+/* ************************************
+ * MAP
+ * ***********************************/
+
+#map {
+  background-color: #efefef;
+  height: 100%;
+  width: 100%;
+}
+
+p {
+  display: none;     
+}     
+
+br {
+  display:none;
+}
