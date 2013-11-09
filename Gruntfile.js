@@ -17,6 +17,61 @@ module.exports = function (grunt) {
         file: 'server.js'
       }
     },
+    cssmin: {
+      combine: {
+        files: {
+          'assets/css/build/app.css': [
+            'assets/css/src/normalize.css',
+            'assets/css/src/font-awesome.css',
+            'assets/css/src/meteocons.css',
+            'assets/css/src/leaflet.css',
+            'assets/css/src/leaflet.awesome-markers.css',
+            'assets/css/src/app.css'
+          ]
+        }
+      },
+      add_banner: {
+        options: {
+          banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+        },
+        files: {
+          'assets/css/build/app.css': ['assets/css/build/app.css']
+        }
+      },
+      minify: {
+        expand: true,
+        cwd: 'assets/css/build/',
+        src: ['*.css', '!*.min.css'],
+        dest: 'public/css/',
+        ext: '.min.css'
+      }
+    },
+    concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: [
+          'assets/js/src/leaflet.js',
+          'assets/js/src/leaflet.awesome-markers.js',
+          'assets/js/src/heatmap.js',
+          'assets/js/src/heatmap-leaflet.js',
+          'assets/js/src/QuadTree.js',
+          'assets/js/src/app.js'
+        ],
+        dest: 'assets/js/build/app.js'
+      }
+    },
+    uglify: {
+      options: {
+         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+      },
+      dist: {
+         files: {
+            'public/js/app.min.js': ['<%= concat.dist.dest %>']
+         }
+      }
+    },
     watch: {
       options: {
         nospawn: true,
@@ -29,11 +84,22 @@ module.exports = function (grunt) {
         ],
         tasks: ['develop', 'delayed-livereload']
       },
+      concat: {
+        files: ['assets/js/src/*.js'],
+        tasks: ['concat', 'uglify'],
+        options: {
+           debounceDelay: 250
+         }
+      },
       js: {
         files: ['public/js/*.js'],
         options: {
           livereload: reloadPort
         }
+      },
+      cssmin: {
+        files: ['assets/css/src/*.css'],
+        tasks: ['cssmin']
       },
       css: {
         files: ['public/css/*.css'],

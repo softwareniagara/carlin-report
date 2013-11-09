@@ -2,8 +2,11 @@ doctype 5
 html
   head
     title= title
-    link(rel='stylesheet', href='/css/style.css')
+    script(src='/js/modernizr.js')
     script(src='http://localhost:35729/livereload.js')
+    link(rel='stylesheet', href='/css/app.min.css')
   body
     iframe(src="http://nodeknockout.com/iframe/software-niagara", frameborder=0, scrolling=no, allowtransparency=true, width=115, height=25)
     block content
+    script(src='/js/app.min.js')
+

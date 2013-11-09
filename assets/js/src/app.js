@@ -1,3 +1,5 @@
+// Set path to icons
+L.Icon.Default.imagePath = '/images';
 
 // create a map in the "map" div, set the view to a given place and zoom
 var map = L.map('map').setView([43.172994, -79.236745], 13);
@@ -13,4 +15,4 @@ map.addLayer(layer);
 // add a marker in the given location, attach some popup content to it and open the popup
 L.marker([43.172994, -79.236745]).addTo(map)
     .bindPopup('The centre of the universe')
-    .openPopup();
+    .openPopup(); 
