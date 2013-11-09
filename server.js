@@ -2,11 +2,44 @@
 require('nko')('nRsCsWZd6275etEh');
 
 /*
+var isProduction = (process.env.NODE_ENV === 'production');
+var http = require('http');
+var port = (isProduction ? 80 : 8000);
 */
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/carlinreport');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+	var crSchema = mongoose.Schema({
+	    "mode": Number
+	    , "time": Number
+	    , "weather": Number
+	    , "email": String
+	    , "coords": []
+	    , "created_at": Date
+	    , "updated_at": Date
+	});
+	var CarlinReport = mongoose.model('CarlinReport', crSchema);
+	var cr = new CarlinReport({
+	    "mode": 1
+	    , "time": 2
+	    , "weather": 3
+	    , "email": "test@test.com"
+	    , "coords": [100,100]
+	    , "created_at": new Date()
+	    , "updated_at": new Date()
+	});
+	cr.save(function (err) {
+	  // if (err) // TODO handle the error
+	});
+});
 
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , incident = require('./routes/incident')
   , http = require('http')
   , path = require('path');
 
@@ -30,17 +63,12 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/incidents', incident.list);
+app.post('/incidents', incident.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
-
-
-/*
-var isProduction = (process.env.NODE_ENV === 'production');
-var http = require('http');
-var port = (isProduction ? 80 : 8000);
-*/
 
 /*
 http.createServer(function (req, res) {
