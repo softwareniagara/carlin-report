@@ -11,9 +11,19 @@
     "url": "git@github.com:nko4/software-niagara.git"
   },
   "dependencies": {
-    "nko": "*"
+    "express": "~3.3.4",
+    "nko": "*",
+    "jade": "~0.34.0"
   },
   "engines": {
     "node": "0.10.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-develop": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "request": "~2.27.0",
+    "time-grunt": "~0.1.1",
+    "load-grunt-tasks": "~0.2.0"
   }
 }
