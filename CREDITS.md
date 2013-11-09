@@ -3,6 +3,8 @@ Use this file to keep track of assets that require credit be given to the author
 GEOSPATIAL
 ============================================
 Mobile-friendly interactive maps thanks to [Leaflet](http://leaflet.js/)
+Colorful, iconic, and retina-proof markers thanks to [Leaflet Awesome Markers](https://github.com/lvoogdt/Leaflet.awesome-markers)
+Heatmap visualizations thanks to [Heatmap.js](http://www.patrick-wied.at/static/heatmapjs/)
 
 ICONS
 ============================================
