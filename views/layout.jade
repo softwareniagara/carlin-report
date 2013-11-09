@@ -4,8 +4,13 @@ html
     title= title
     script(src='/js/modernizr.js')
     script(src='http://localhost:35729/livereload.js')
+
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,900')
     link(rel='stylesheet', href='/css/app.min.css')
   body
+    #header
+      h1 The Carlin Report
+      button(data-file="report") File Report
     block content
     script(src='/js/app.min.js')
 
