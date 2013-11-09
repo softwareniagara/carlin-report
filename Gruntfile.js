@@ -24,8 +24,9 @@ module.exports = function (grunt) {
             'assets/css/src/normalize.css',
             'assets/css/src/font-awesome.css',
             'assets/css/src/meteocons.css',
-            'assets/css/src/leaflet.css',
             'assets/css/src/leaflet.awesome-markers.css',
+            'assets/css/src/leaflet.css',
+            'assets/css/src/magnific-popup.css',
             'assets/css/src/app.css'
           ]
         }
@@ -46,6 +47,21 @@ module.exports = function (grunt) {
         ext: '.min.css'
       }
     },
+    stylus: {
+      compile: {
+        options: {
+          paths: ['assets/stylus'],
+          urlfunc: 'embedurl', // use embedurl('test.png') in our code to trigger Data URI embedding
+          use: [
+            require('nib') // use stylus plugin at compile time
+          ],
+          import: ['nib']
+        },
+        files: {
+          'assets/css/src/app.css': 'assets/stylus/app.styl', // 1:1 compile
+        }
+      }
+    },
     concat: {
       options: {
         separator: ';'
@@ -57,6 +73,8 @@ module.exports = function (grunt) {
           'assets/js/src/heatmap.js',
           'assets/js/src/heatmap-leaflet.js',
           'assets/js/src/QuadTree.js',
+          'assets/js/src/jquery.js',
+          'assets/js/src/jquery.magnific-popup.js',
           'assets/js/src/app.js'
         ],
         dest: 'assets/js/build/app.js'
@@ -99,7 +117,17 @@ module.exports = function (grunt) {
       },
       cssmin: {
         files: ['assets/css/src/*.css'],
-        tasks: ['cssmin']
+        tasks: ['cssmin'],
+        options: {
+          debounceDelay: 250
+        }
+      },
+      stylus: {
+        files: ['assets/stylus/*.styl'],
+        tasks: ['stylus', 'cssmin'],
+        options: {
+          debounceDelay: 250
+        }
       },
       css: {
         files: ['public/css/*.css'],
