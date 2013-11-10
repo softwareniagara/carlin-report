@@ -23,6 +23,12 @@ button {
   line-height: 1em;
   margin: 0;
   padding: .5em 1em;
+  text-shadow: 0 -1px darken(app-red, 15%);
+}
+button:hover {
+  background-color: darken(app-red, 5%);
+  border-color: darken(app-red, 10%);
+  text-shadow: 0 -1px darken(app-red, 20%);
 }
 
 /* ************************************
@@ -35,14 +41,26 @@ button {
   right: 0;
 
   background-color: #fff;
-  border-bottom: 1em solid app-red;
-  padding: 1em 1em;
+  border-bottom: 5px solid app-red;
+  padding: 5px 30px;
 
   h1 {
+    background: white url('../images/logo.png') center center no-repeat;
+    background-size: cover;
     color: app-text;
     display: inline-block;
-    line-height: 1em;
+    height: 72px;
+    line-height: 68px;
     margin: 0 0;
+    overflow: hidden;
+    text-indent: -9999em;
+    vertical-align: middle;
+    width: 281px;
+  }
+
+  button {
+    font-size: 24px;
+    margin-top: 12px;
   }
 }
  
@@ -52,7 +70,7 @@ button {
 
 #map {
   position: absolute;
-  top: 6em;
+  top: 87px;
   left: 0;
   right: 0;
   bottom: 0;
