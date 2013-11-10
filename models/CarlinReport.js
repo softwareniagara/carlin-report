@@ -1,5 +1,6 @@
 var validate = require('mongoose-validate')
   , mongoose = require('mongoose')
+  , geocoder = require('geocoder')
   , crSchema
   , legend;
 
@@ -31,8 +32,38 @@ crSchema = mongoose.Schema({
     , 'weather': { type: Number, get: getWeather, set: setWeather }
     //, 'email':  { type: String, required: false, validate: [validate.email, 'invalid email address'] }
     , 'coords': []
+    , 'address': String
     , 'created_at': Date
     , 'updated_at': Date
+});
+
+crSchema.pre('save', function(next) {
+  var self = this;
+
+  if (!self.coords && self.address) {
+    geocoder.geocode(self.address, function(err, data) {
+      var lat, lng;
+
+      if (data && data.results && data.results.length > 0 && data.results[0].geometry && data.results[0].geometry.location) {
+        lat = data.results[0].geometry.location.lat;
+        lng = data.results[0].geometry.location.lng;
+      }
+
+      if (data && data.geometry && data.geometry.location) {
+        
+        lat = data.geometry.location.lat;
+        lng = data.geometry.location.lng;
+      }
+
+      if (typeof lat !== 'undefined' && typeof lng !== 'undefined') {
+        self.coords = [lat, lng];
+      }
+
+      next(err);
+    });
+  } else {
+    next();
+  }
 });
 
 function getMode(value) {
