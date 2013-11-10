@@ -18,6 +18,15 @@ exports.get = function(req, res){
 	});	
 };
 
+exports.del = function(req, res){
+	CarlinReport.findByIdAndRemove(req.params.id, function(err, data){
+		if (err) {
+			res.send('Remove failed');
+		}
+		res.send();
+	});	
+};
+
 exports.post = function(req, res){
 	var body = req.body;
 	var data = {
@@ -32,28 +41,20 @@ exports.post = function(req, res){
 	
 	var cr = new CarlinReport(data);
 	cr.save(function (err) {
-		// if (err) // TODO handle the error
+		if (err) {
+			res.send('Post failed');
+		}
 	});
 
 	res.send(cr);
 };
 
 exports.put = function(req, res){
-	var body = req.body;
-	CarlinReport.findOne({'_id': body._id}).exec(function(err, cr){
-		cr.mode = body.mode;
-		cr.time = body.time;
-		cr.weather = body.weather;
-		cr.email = body.email;
-		cr.coords = body.coords;
-		cr.updated_at = new Date();
-		
-		cr.save(function (err) {
-	  		if (err) {
-				res.send(err);
-	  		} else {
-				res.send(cr);
-	  		}
-		});
-	});	
+	CarlinReport.findByIdAndUpdate(req.params.id, req.body, function(err, cr) {
+  		if (err) {
+			res.send(err);
+  		} else {
+			res.send(cr);
+  		}
+	});
 };
