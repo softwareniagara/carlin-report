@@ -21471,7 +21471,6 @@ map.addLayer(incidents);
           }
 
 
-
           var newLocation = L.marker([data.coords[0], data.coords[1]], { icon: iconType })
             .bindPopup('<strong>Mode</strong>: '+data.mode+'<br>\
               <strong>Weather</strong>: '+data.weather+'<br>\
@@ -21481,8 +21480,6 @@ map.addLayer(incidents);
 
           incidents.clearLayers();
           incidents.addLayer(newLocation);
-
-          console.log('got here');
 
           var req = $.ajax({
             url: '/incidents',
@@ -21533,9 +21530,9 @@ map.addLayer(incidents);
       $('#form-latitude').val('');
       $('#form-longitude').val('');
 
-      if (window.carlinReport.coords) {
-        $('#form-latitude').val(window.carlinReport.coords.latitude);
-        $('#form-longitude').val(window.carlinReport.coords.longitude);
+      if (window.CarlinReport.coords) {
+        $('#form-latitude').val(window.CarlinReport.coords.latitude);
+        $('#form-longitude').val(window.CarlinReport.coords.longitude);
       }
 
       $('[data-type]').removeClass('active');
