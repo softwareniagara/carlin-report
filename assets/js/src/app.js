@@ -62,5 +62,17 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
         }
       });
     });
+
+    // Questionairre
+    $('[data-input]').on('click', function() {
+      var $self = $(this)
+        , type  = $self.data('type')
+        , value = $self.data('value');
+
+      $('[data-type="'+type+'"]').removeClass('active');
+      $self.addClass('active');
+
+      $('#form-'+type).val(value);
+    });
   });
 })(jQuery);
