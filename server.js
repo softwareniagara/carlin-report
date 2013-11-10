@@ -33,7 +33,7 @@ app.get('/', routes.index);
 app.get('/incidents', incident.list);
 app.get('/incidents/:id', incident.get);
 app.post('/incidents', incident.post);
-app.put('/incidents', incident.put);
+app.put('/incidents/:id', incident.put);
 app.del('/incidents/:id', incident.del);
 
 require('mongoose').connect('mongodb://localhost/carlinreport');
