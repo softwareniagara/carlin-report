@@ -90,5 +90,21 @@ block content
       .navigation
         a(href='#', data-move-to="#weather", class="button button-previous", title="Previous")
           i(class="fa fa-chevron-left")
+        a(href='#', data-move-to="#location", class="button button-next", title="Next")
+          i(class="fa fa-chevron-right")
         .clear
+    .question-section(id="location")
+      .question Where did it happen?
+      .controls
+        form
+          label(for="form-address") Enter nearest address (leave blank to use current location)
+          input(id="form-address", name="address", type="text", placeholder="E.g. Edenbridge Drive, Etobicoke ON")
+      .navigation
+        a(href='#', data-move-to="#time", class="button button-previous", title="Previous")
+          i(class="fa fa-chevron-left")
+        a(href='#', data-submit, class="button button-next button-submit", title="Submit")
+          i(class="fa fa-check")
+          != "&nbsp; File report"
+        .clear
+
 
