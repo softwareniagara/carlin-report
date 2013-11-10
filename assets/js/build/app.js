@@ -21465,8 +21465,14 @@ map.addLayer(incidents);
               break;
           }
 
+
+
           var newLocation = L.marker([data.coords[0], data.coords[1]], { icon: iconType })
-            .bindPopup('This is that');
+            .bindPopup('<strong>Mode</strong>: '+data.mode+'<br>\
+              <strong>Weather</strong>: '+data.weather+'<br>\
+              <strong>Time</strong>: '+data.time+'<br>');
+
+          map.setView(new L.LatLng(data.coords[0], data.coords[1]), 13);
 
           incidents.clearLayers();
           incidents.addLayer(newLocation);
