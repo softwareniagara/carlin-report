@@ -12,7 +12,7 @@ exports.list = function(req, res){
 exports.get = function(req, res){
 	CarlinReport.findById(req.params.id, function(err, data){
 		if (err) {
-			res.send('Incident not found');
+			res.send(err);
 		}
 		res.send(data);
 	});	
@@ -21,7 +21,7 @@ exports.get = function(req, res){
 exports.del = function(req, res){
 	CarlinReport.findByIdAndRemove(req.params.id, function(err, data){
 		if (err) {
-			res.send('Remove failed');
+			res.send(err);
 		}
 		res.send();
 	});	
@@ -37,16 +37,15 @@ exports.post = function(req, res){
 	    , 'coords': body.coords
 	    , 'created_at': new Date()
 	    , 'updated_at': new Date()
-	}
+	};
 	
 	var cr = new CarlinReport(data);
-	cr.save(function (err) {
-		if (err) {
-			res.send('Post failed');
+	cr.save(function (err, data) {
+		if (err || !data) {
+			res.send(err);
 		}
+		res.send(cr);
 	});
-
-	res.send(cr);
 };
 
 exports.put = function(req, res){

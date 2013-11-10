@@ -23,6 +23,7 @@ app.configure(function(){
 	app.use(express.methodOverride());
 	app.use(app.router);
 	app.use(express.static(path.join(__dirname, 'public')));
+	// app.use(express.session({cookie: { path: '/', httpOnly: true, maxAge: null }, secret:'carpolinrert'}));
 });
 
 app.configure('development', function(){
