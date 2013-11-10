@@ -1,8 +1,34 @@
+// Global
+window.CarlinReport = {}; // TODO Global bad. Put in AMD module.
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(
+		function (pos) {
+			window.CarlinReport.coords = pos.coords
+			setMapLocation()
+		}
+		, function (posErr) {
+			// Handle error
+		}
+	);
+} else {
+	// TODO handle old browser.
+}
+
+var setMapLocation = function() {
+	// create a map in the "map" div, set the view to a given place and zoom
+	if (window.CarlinReport.coords) {
+		var coords = window.CarlinReport.coords;
+		map.setView([coords.latitude, coords.longitude], 13);
+	} else {
+		map.setView([43.172994, -79.236745], 13);
+	}
+}
+
+var map = L.map('map');
+
 // Set path to icons
 L.Icon.Default.imagePath = '/images';
 
-// create a map in the "map" div, set the view to a given place and zoom
-var map = L.map('map').setView([43.172994, -79.236745], 13);
 
 // create a new tile layer
 var tileUrl = 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
@@ -38,24 +64,6 @@ L.marker([43.153748, -79.246420], { icon: runMarker }).addTo(map)
 
 L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
     .bindPopup('This was a cycling near-hit'); 
-
-
-	var getLocation = function() {
-		if (navigator.geolocation) {
-	    	navigator.geolocation.getCurrentPosition(
-	    		function (pos) {
-	   				console.debug(pos);
-					// var coords = pos.coords;
-	    		}
-	    		, function (posErr) {
-	    			console.debug(posErr);
-	    		}
-	    	);
-		} else {
-   			console.debug('Geolocation is disabled');
-		}
-	}
-	getLocation();
 
 (function($) {
 
@@ -118,3 +126,4 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
     });
   });
 })(jQuery);
+
