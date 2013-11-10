@@ -18,6 +18,15 @@ exports.get = function(req, res){
 	});	
 };
 
+exports.del = function(req, res){
+	CarlinReport.findByIdAndRemove(req.params.id, function(err, data){
+		if (err) {
+			res.send('Remove failed');
+		}
+		res.send();
+	});	
+};
+
 exports.post = function(req, res){
 	var body = req.body;
 	var data = {
