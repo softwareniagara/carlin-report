@@ -1,9 +1,13 @@
 *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
-html,body{font-family:'Roboto','Helvetica Neueu','Arial','Helvetica','sans-serif';font-size:18px;width:100%;height:100%}
+html,body{font-family:'Roboto','Helvetica Neueu','Arial','Helvetica','sans-serif';font-size:16px;width:100%;height:100%}
+body{margin:0;padding:0}
 button{background-color:#d43e2a;border:1px solid #c93b28;-webkit-border-radius:2px;border-radius:2px;color:#fff;float:right;font-size:1em;line-height:1em;margin:0;padding:.5em 1em;text-shadow:0 -1px #b43524}
 button:hover{background-color:#c93b28;border-color:#bf3826;text-shadow:0 -1px #aa3222}
-#header{position:absolute;top:0;left:0;right:0;background-color:#fff;border-bottom:5px solid #d43e2a;padding:5px 30px;}
+.wrapper{position:absolute;top:87px;left:0;right:0;bottom:0}
+#header{position:fixed;top:0;left:0;right:0;background-color:#fff;border-bottom:5px solid #d43e2a;padding:5px 30px;}
 #header h1{background:#fff url("../images/logo.png") center center no-repeat;-webkit-background-size:cover;-moz-background-size:cover;background-size:cover;color:#262626;display:inline-block;height:72px;line-height:68px;margin:0 0;overflow:hidden;text-indent:-9999em;vertical-align:middle;width:281px}
 #header button{font-size:18px;margin-top:18px}
-#map{position:absolute;top:87px;left:0;right:0;bottom:0;background-color:#efefef;height:100%;width:100%}
+#map{background-color:#efefef;height:100%;width:100%}
+#knockout{position:absolute;bottom:30px;right:30px;background-color:#fff;border:5px solid #d43e2a;-webkit-border-radius:4px;border-radius:4px;padding:15px 30px;width:180px;}
+#knockout p{margin-top:0}
 .modal{position:relative;background:#fff;-webkit-border-radius:4px;border-radius:4px;padding:30px;width:auto;max-width:500px;margin:20px auto}

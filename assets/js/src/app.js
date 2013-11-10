@@ -2,7 +2,7 @@
 L.Icon.Default.imagePath = '/images';
 
 // create a map in the "map" div, set the view to a given place and zoom
-var map = L.map('map').setView([43.172994, -79.236745], 18);
+var map = L.map('map').setView([43.172994, -79.236745], 15);
 
 // create a new tile layer
 var tileUrl = 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
