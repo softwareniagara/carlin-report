@@ -4,4 +4,91 @@ block content
   .wrapper
     #map
   #popup(class="modal mfp-hide")
-    Popup content
+    .question-section(id="mode", style="display: block;")
+      .question What were you doing?
+      .controls
+        ul
+          li
+            a(href="#", data-mode="walking", class="active")
+              .circle
+                i(class="map-icon-trail-walking")
+              .title Walking
+          li
+            a(href="#", data-mode="running")
+              .circle
+                i(class="map-icon-walking")
+              .title Running
+          li
+            a(href="#", data-mode="cycling")
+              .circle
+                i(class="map-icon-bicycling")
+              .title Bicycling
+      .navigation
+        a(href='#', data-move-to='#weather', class='button button-next', title="Next") 
+          i(class="fa fa-chevron-right")
+        .clear
+    .question-section(id="weather")
+      .question How was the weather?
+      .controls(id="weather")
+        ul
+          li
+            a(href='#', data-weather="sunny", class="active")
+              .circle
+                i(class="weather-icon", data-icon="B")
+              .title Sunny
+          li
+            a(href='#', data-weather="cloudy")
+              .circle
+                i(class="weather-icon", data-icon="H")
+              .title Overcast
+          li
+            a(href='#', data-weather="overcast")
+              .circle
+                i(class="weather-icon", data-icon="N")
+              .title Cloudy
+          li
+            a(href='#', data-weather="raining")
+              .circle
+                i(class="weather-icon", data-icon="R")
+              .title Raining
+          li
+            a(href='#', data-weather="snowing")
+              .circle
+                i(class="weather-icon", data-icon="W")
+              .title Snowing
+      .navigation
+        a(href='#', data-move-to='#mode', class='button button-previous', title="Previous") 
+          i(class="fa fa-chevron-left") 
+        a(href='#', data-move-to='#time', class='button button-next', title="Next") 
+          i(class="fa fa-chevron-right")
+        .clear
+
+    .question-section(id="time")
+      .question When did it happen?
+      .controls(id="time")
+        ul
+          li
+            a(href='#', data-time="morning", class="active")
+              .circle
+                i(class="weather-icon", data-icon="J")
+              .title Morning
+          li
+            a(href='#', data-time="afternoon")
+              .circle
+                i(class="weather-icon", data-icon="B")
+              .title Afternoon
+          li
+            a(href='#', data-time="evening")
+              .circle
+                i(class="weather-icon", data-icon="K")
+              .title Evening
+          li
+            a(href='#', data-time="night")
+              .circle
+                i(class="weather-icon", data-icon="C")
+              .title Night
+      .navigation
+        a(href='#', data-move-to="#weather", class="button button-previous", title="Previous")
+          i(class="fa fa-chevron-left")
+        .clear
+

@@ -11,6 +11,7 @@ ICONS
 ============================================
 
 * General font icons thanks to [Font Awesome](http://fontawesome.io/)
+* Map icons thanks to [Map Icons](http://map-icons.com/)
 * Weather font icons thanks to [Meteocons](http://www.alessioatzeni.com/meteocons/)
 
 UTILITIES

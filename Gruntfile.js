@@ -24,6 +24,7 @@ module.exports = function (grunt) {
             'assets/css/src/normalize.css',
             'assets/css/src/font-awesome.css',
             'assets/css/src/meteocons.css',
+            'assets/css/src/map-icons.css',
             'assets/css/src/leaflet.awesome-markers.css',
             'assets/css/src/leaflet.css',
             'assets/css/src/magnific-popup.css',
