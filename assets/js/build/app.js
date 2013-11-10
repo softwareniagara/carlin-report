@@ -21320,29 +21320,6 @@ if (navigator.geolocation) {
 	// TODO handle old browser.
 }
 
-var setMapLocation = function() {
-	// create a map in the "map" div, set the view to a given place and zoom
-	if (window.CarlinReport.coords) {
-		var coords = window.CarlinReport.coords;
-		map.setView([coords.latitude, coords.longitude], 13);
-	} else {
-		map.setView([43.172994, -79.236745], 13);
-	}
-}
-
-var map = L.map('map');
-
-// Set path to icons
-L.Icon.Default.imagePath = '/images';
-
-
-// create a new tile layer
-var tileUrl = 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
-    layer = new L.TileLayer(tileUrl, {maxZoom: 18});
-
-// add the layer to the map
-map.addLayer(layer);
-
 var walkMarker = L.AwesomeMarkers.icon({
   prefix: 'map-icon',
   icon: 'trail-walking',
@@ -21361,17 +21338,81 @@ var cyclingMarker = L.AwesomeMarkers.icon({
   markerColor: 'green'
 });
 
+var setMapLocation = function() {
+	// create a map in the "map" div, set the view to a given place and zoom
+	if (window.CarlinReport.coords) {
+		
+		
+	} else {
+    window.CarlinReport.coords = {
+      latitude: 43.172994,
+      longitude: -79.236745
+    }
+	}
+
+  var coords = window.CarlinReport.coords;
+  map.setView([coords.latitude, coords.longitude], 13);
+
+  var req = $.ajax({
+    url: '/incidents',
+    type: 'GET',
+    data: {
+      latitude: window.CarlinReport.coords.latitude,
+      longitude: window.CarlinReport.coords.longitude 
+    }
+  }).done(function(data) {
+    for (var i in data) {
+      var incident = data[i];
+
+      var iconType = walkMarker;
+
+      switch (incident.mode) {
+        case 'walking':
+          iconType = walkMarker;
+          break;
+        case 'running':
+          iconType = runMarker;
+          break;
+        case 'cycling':
+          iconType = cyclingMarker;
+          break;
+      }
+
+      if (incident.coords && incident.coords.length == 2) {
+        var location = L.marker([incident.coords[0], incident.coords[1]], { icon: iconType })
+        .bindPopup('<strong>Mode</strong>: '+incident.mode+'<br>\
+          <strong>Weather</strong>: ' + incident.weather+'<br>\
+          <strong>Time</strong>: '+incident.time+'<br>');
+        incidents.addLayer(location);
+      }
+    }
+  });
+}
+
+var map = L.map('map');
+
+// Set path to icons
+L.Icon.Default.imagePath = '/images';
+
+
+// create a new tile layer
+var tileUrl = 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
+    layer = new L.TileLayer(tileUrl, {maxZoom: 18});
+
+// add the layer to the map
+map.addLayer(layer);
+
 // add a marker in the given location, attach some popup content to it and open the popup
-var walkingExample = L.marker([43.172994, -79.236745], { icon: walkMarker })
+//var walkingExample = L.marker([43.172994, -79.236745], { icon: walkMarker })
     .bindPopup('This was a walking near-hit');
 
-var runningExample = L.marker([43.153748, -79.246420], { icon: runMarker })
+//var runningExample = L.marker([43.153748, -79.246420], { icon: runMarker })
     .bindPopup('This was a running near-hit');
 
-var cyclingExample = L.marker([43.156637, -79.239277], { icon: cyclingMarker })
+//var cyclingExample = L.marker([43.156637, -79.239277], { icon: cyclingMarker })
     .bindPopup('This was a cycling near-hit'); 
 
-var incidents = L.layerGroup([walkingExample, runningExample, cyclingExample]);
+//var incidents = L.layerGroup([walkingExample, runningExample, cyclingExample]);
 
 map.addLayer(incidents);
 
