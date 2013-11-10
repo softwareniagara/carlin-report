@@ -21371,8 +21371,6 @@ var runningExample = L.marker([43.153748, -79.246420], { icon: runMarker })
 var cyclingExample = L.marker([43.156637, -79.239277], { icon: cyclingMarker })
     .bindPopup('This was a cycling near-hit'); 
 
-<<<<<<< HEAD
-=======
 var incidents = L.layerGroup([walkingExample, runningExample, cyclingExample]);
 
 map.addLayer(incidents);
@@ -21394,7 +21392,6 @@ map.addLayer(incidents);
 	}
 	getLocation();
 
->>>>>>> 69268da93827f5b9539cba1488a4fcb9d04b4a59
 (function($) {
 
   $(document).ready(function() {
@@ -21500,4 +21497,3 @@ map.addLayer(incidents);
     }
   });
 })(jQuery);
-
