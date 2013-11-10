@@ -23,7 +23,8 @@ html
     meta(name="msapplication-square310x310logo", content="/mstile-310x310.png")
 
     script(src='/js/modernizr.js')
-    script(src='http://localhost:35729/livereload.js')
+    if settings.env === 'development'
+      script(src='http://localhost:35729/livereload.js')
 
     link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,900')
     link(rel='stylesheet', href='/css/app.min.css')
