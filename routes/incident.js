@@ -1,11 +1,34 @@
 /*
  * GET incidents.
  */
-var CarlinReport = require('./../models/CarlinReport');
+var CarlinReport = require('./../models/CarlinReport')
+	, convertResult;
+
+convertResult = function(result) {
+	return {
+		id: result._id,
+		mode: result.mode,
+		weather: result.weather,
+		time: result.time,
+		created_at: result.created_at,
+		updated_at: result.updated_at
+	}
+};
 
 exports.list = function(req, res){
 	CarlinReport.find().exec(function(err, data){
-		res.send(data);
+		if (err) {
+			res.send(err);
+		}
+
+		var results = [];
+		for (var i in data) {
+			var obj = data[i];
+
+			results.push(convertResult(obj));
+		}
+
+		res.send(results);
 	});	
 };
 
@@ -14,7 +37,7 @@ exports.get = function(req, res){
 		if (err) {
 			res.send(err);
 		}
-		res.send(data);
+		res.send(convertResult(data));
 	});	
 };
 
@@ -49,7 +72,7 @@ exports.post = function(req, res){
 		if (err || !data) {
 			res.send(err);
 		}
-		res.send(cr);
+		res.send(data);
 	});
 };
 
