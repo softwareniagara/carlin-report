@@ -11,7 +11,8 @@ convertResult = function(result) {
 		weather: result.weather,
 		time: result.time,
 		created_at: result.created_at,
-		updated_at: result.updated_at
+		updated_at: result.updated_at,
+		coords: result.coords
 	}
 };
 
@@ -65,6 +66,7 @@ exports.post = function(req, res){
 	    , 'coords': body.coords
 	    , 'created_at': new Date()
 	    , 'updated_at': new Date()
+	    , 'address': body.address
 	};
 	
 	var cr = new CarlinReport(data);
@@ -72,7 +74,7 @@ exports.post = function(req, res){
 		if (err || !data) {
 			res.send(err);
 		}
-		res.send(data);
+		res.send(convertResult(cr));
 	});
 };
 
@@ -81,7 +83,7 @@ exports.put = function(req, res){
   		if (err) {
 			res.send(err);
   		} else {
-			res.send(cr);
+			res.send(convertResult(cr));
   		}
 	});
 };

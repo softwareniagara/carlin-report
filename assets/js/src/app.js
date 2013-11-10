@@ -56,14 +56,35 @@ var cyclingMarker = L.AwesomeMarkers.icon({
 });
 
 // add a marker in the given location, attach some popup content to it and open the popup
-L.marker([43.172994, -79.236745], { icon: walkMarker }).addTo(map)
+var walkingExample = L.marker([43.172994, -79.236745], { icon: walkMarker })
     .bindPopup('This was a walking near-hit');
 
-L.marker([43.153748, -79.246420], { icon: runMarker }).addTo(map)
+var runningExample = L.marker([43.153748, -79.246420], { icon: runMarker })
     .bindPopup('This was a running near-hit');
 
-L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
+var cyclingExample = L.marker([43.156637, -79.239277], { icon: cyclingMarker })
     .bindPopup('This was a cycling near-hit'); 
+
+var incidents = L.layerGroup([walkingExample, runningExample, cyclingExample]);
+
+map.addLayer(incidents);
+
+	var getLocation = function() {
+		if (navigator.geolocation) {
+	    	navigator.geolocation.getCurrentPosition(
+	    		function (pos) {
+	   				console.debug(pos);
+					// var coords = pos.coords;
+	    		}
+	    		, function (posErr) {
+	    			console.debug(posErr);
+	    		}
+	    	);
+		} else {
+   			console.debug('Geolocation is disabled');
+		}
+	}
+	getLocation();
 
 (function($) {
 
@@ -86,6 +107,9 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
         items: {
           src: '#popup',
           type: 'inline'
+        },
+        callbacks: {
+          close: resetAllTheThings
         }
       });
     });
@@ -102,6 +126,7 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
       $('#form-'+type).val(value);
     });
 
+
     $('#form-questions').on('submit', function() {
       var request = $.ajax({
         url: '/incidents',
@@ -116,7 +141,30 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
         }
       })
       .done(function(data) {
-        console.log(data);
+        var magnificPopup = $.magnificPopup.instance; 
+        magnificPopup.close();
+
+        if (data && data.coords) {
+          var iconType = walkMarker;
+
+          switch (data.mode) {
+            case 'walking':
+              iconType = walkMarker;
+              break;
+            case 'running':
+              iconType = runMarker;
+              break;
+            case 'cycling':
+              iconType = cyclingMarker;
+              break;
+          }
+
+          var newLocation = L.marker([data.coords[0], data.coords[1]], { icon: iconType })
+            .bindPopup('This is that');
+
+          incidents.clearLayers();
+          incidents.addLayer(newLocation);
+        }
       })
       .fail(function(jqXHR, textStatus) {
         alert('Failed to post data. Whoops.');
@@ -124,6 +172,22 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
 
       return false;
     });
+
+    function resetAllTheThings() {
+      $('#form-address').val('');
+      $('#form-mode').val('walking');
+      $('#form-weather').val('sunny');
+      $('#form-time').val();
+      $('#form-latitude').val('');
+      $('#form-longitude').val('');
+
+      $('[data-type]').removeClass('active');
+      $('[data-value="walking"]').addClass('active');
+      $('[data-value="sunny"]').addClass('active');
+      $('[data-value="morning"]').addClass('active');
+
+      $('.question-section').attr('style', 'display: none;');
+      $('.question-section#mode').attr('style', 'display: block;');
+    }
   });
 })(jQuery);
-
