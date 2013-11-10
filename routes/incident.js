@@ -9,6 +9,15 @@ exports.list = function(req, res){
 	});	
 };
 
+exports.get = function(req, res){
+	CarlinReport.findById(req.params.id, function(err, data){
+		if (err) {
+			res.send('Incident not found');
+		}
+		res.send(data);
+	});	
+};
+
 exports.post = function(req, res){
 	var body = req.body;
 	var data = {
