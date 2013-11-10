@@ -78,6 +78,9 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
         items: {
           src: '#popup',
           type: 'inline'
+        },
+        callbacks: {
+          close: resetAllTheThings
         }
       });
     });
@@ -93,6 +96,7 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
 
       $('#form-'+type).val(value);
     });
+
 
     $('#form-questions').on('submit', function() {
       var request = $.ajax({
@@ -116,5 +120,22 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
 
       return false;
     });
+
+    function resetAllTheThings() {
+      $('#form-address').val('');
+      $('#form-mode').val('walking');
+      $('#form-weather').val('sunny');
+      $('#form-time').val();
+      //$('#form-latitude').val('');
+      //$('#form-longitude').val('');
+
+      $('[data-type]').removeClass('active');
+      $('[data-value="walking"]').addClass('active');
+      $('[data-value="sunny"]').addClass('active');
+      $('[data-value="morning"]').addClass('active');
+
+      $('.question-section').attr('style', 'display: none;');
+      $('.question-section#mode').attr('style', 'display: block;');
+    }
   });
 })(jQuery);
