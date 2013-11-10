@@ -21395,6 +21395,11 @@ map.addLayer(incidents);
 (function($) {
 
   $(document).ready(function() {
+    if (window.CarlinReport.coords) {
+      $('#form-latitude').val(window.carlinReport.coords.latitude);
+      $('#form-longitude').val(window.carlinReport.coords.longitude);
+    }
+
     // Toggle between sections in the questionairre.
     $('.question-section [data-move-to]').on('click', function() {
       var $self = $(this)
@@ -21476,6 +21481,41 @@ map.addLayer(incidents);
 
           incidents.clearLayers();
           incidents.addLayer(newLocation);
+
+          console.log('got here');
+
+          var req = $.ajax({
+            url: '/incidents',
+            type: 'GET',
+            data: {
+              latitude: data.coords[0],
+              longitude: data.coords[1] 
+            }
+          }).done(function(data) {
+            for (var i in data) {
+              var incident = data[i];
+
+              var iconType = walkMarker;
+
+              switch (data.mode) {
+                case 'walking':
+                  iconType = walkMarker;
+                  break;
+                case 'running':
+                  iconType = runMarker;
+                  break;
+                case 'cycling':
+                  iconType = cyclingMarker;
+                  break;
+              }
+
+              var location = L.marker(incident.coords[0], incident.coords[1], { icon: iconType })
+                .bindPopup('<strong>Mode</strong>: '+incident.mode+'<br>\
+                  <strong>Weather</strong>: ' + incident.weather+'<br>\
+                  <strong>Time</strong>: '+incident.time+'<br>');
+              incidents.addLayer(location);
+            }
+          });
         }
       })
       .fail(function(jqXHR, textStatus) {
@@ -21492,6 +21532,11 @@ map.addLayer(incidents);
       $('#form-time').val();
       $('#form-latitude').val('');
       $('#form-longitude').val('');
+
+      if (window.carlinReport.coords) {
+        $('#form-latitude').val(window.carlinReport.coords.latitude);
+        $('#form-longitude').val(window.carlinReport.coords.longitude);
+      }
 
       $('[data-type]').removeClass('active');
       $('[data-value="walking"]').addClass('active');

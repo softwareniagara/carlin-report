@@ -17,20 +17,37 @@ convertResult = function(result) {
 };
 
 exports.list = function(req, res){
-	CarlinReport.find().exec(function(err, data){
-		if (err) {
-			res.send(err);
-		}
+	if (req.body.latitude && req.body.longitude) {
+		CarlinReport.find({geo: { $nearSphere: [req.body.latitude, req.body.longitude], $maxDistance: 0.01} }, function(err, data) {
+			if (err) {
+				res.send(err);
+			}
 
-		var results = [];
-		for (var i in data) {
-			var obj = data[i];
+			var results = [];
+			for (var i in data) {
+				var obj = data[i];
 
-			results.push(convertResult(obj));
-		}
+				results.push(convertResult(obj));
+			}
 
-		res.send(results);
-	});	
+			res.send(results);
+		});
+	} else {
+		CarlinReport.find().exec(function(err, data){
+			if (err) {
+				res.send(err);
+			}
+
+			var results = [];
+			for (var i in data) {
+				var obj = data[i];
+
+				results.push(convertResult(obj));
+			}
+
+			res.send(results);
+		});	
+	}
 };
 
 exports.get = function(req, res){
