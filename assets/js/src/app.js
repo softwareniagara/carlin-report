@@ -39,7 +39,26 @@ L.marker([43.153748, -79.246420], { icon: runMarker }).addTo(map)
 L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
     .bindPopup('This was a cycling near-hit'); 
 
+
+	var getLocation = function() {
+		if (navigator.geolocation) {
+	    	navigator.geolocation.getCurrentPosition(
+	    		function (pos) {
+	   				console.debug(pos);
+					// var coords = pos.coords;
+	    		}
+	    		, function (posErr) {
+	    			console.debug(posErr);
+	    		}
+	    	);
+		} else {
+   			console.debug('Geolocation is disabled');
+		}
+	}
+	getLocation();
+
 (function($) {
+
   $(document).ready(function() {
     // Toggle between sections in the questionairre.
     $('.question-section [data-move-to]').on('click', function() {
@@ -62,7 +81,7 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
         }
       });
     });
-
+	
     // Questionairre
     $('[data-input]').on('click', function() {
       var $self = $(this)
