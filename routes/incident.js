@@ -29,6 +29,11 @@ exports.del = function(req, res){
 
 exports.post = function(req, res){
 	var body = req.body;
+
+	if (body.latitude && body.longitude) {
+		body.coords = [body.latitude, body.longitude];
+	}
+
 	var data = {
 	    'mode': body.mode
 	    , 'time': body.time

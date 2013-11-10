@@ -4,7 +4,7 @@ var crSchema = mongoose.Schema({
     'mode': Number
     , 'time': Number
     , 'weather': Number
-    , 'email':  { type: String, required: true, validate: [validate.email, 'invalid email address'] }
+    , 'email':  { type: String, required: false, validate: [validate.email, 'invalid email address'] }
     , 'coords': []
     , 'created_at': Date
     , 'updated_at': Date
