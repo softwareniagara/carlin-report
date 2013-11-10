@@ -9,17 +9,17 @@ block content
       .controls
         ul
           li
-            a(href="#", data-mode="walking", class="active")
+            a(href="#", data-input, data-type="mode", data-value="walking", class="active")
               .circle
                 i(class="map-icon-trail-walking")
               .title Walking
           li
-            a(href="#", data-mode="running")
+            a(href="#", data-input, data-type="mode", data-value="running")
               .circle
                 i(class="map-icon-walking")
               .title Running
           li
-            a(href="#", data-mode="cycling")
+            a(href="#", data-input, data-type="mode", data-value="cycling")
               .circle
                 i(class="map-icon-bicycling")
               .title Bicycling
@@ -32,27 +32,27 @@ block content
       .controls(id="weather")
         ul
           li
-            a(href='#', data-weather="sunny", class="active")
+            a(href='#', data-input, data-type="weather", data-value="sunny", class="active")
               .circle
                 i(class="weather-icon", data-icon="B")
               .title Sunny
           li
-            a(href='#', data-weather="cloudy")
+            a(href='#', data-input, data-type="weather", data-value="partly-cloudy")
               .circle
                 i(class="weather-icon", data-icon="H")
-              .title Overcast
+              .title Partly
           li
-            a(href='#', data-weather="overcast")
+            a(href='#', data-input, data-type="weather", data-value="cloudy")
               .circle
                 i(class="weather-icon", data-icon="N")
               .title Cloudy
           li
-            a(href='#', data-weather="raining")
+            a(href='#', data-input, data-type="weather", data-value="raining")
               .circle
                 i(class="weather-icon", data-icon="R")
               .title Raining
           li
-            a(href='#', data-weather="snowing")
+            a(href='#', data-input, data-type="weather", data-value="snowing")
               .circle
                 i(class="weather-icon", data-icon="W")
               .title Snowing
@@ -68,22 +68,22 @@ block content
       .controls(id="time")
         ul
           li
-            a(href='#', data-time="morning", class="active")
+            a(href='#', data-input, data-type="time", data-value="morning", class="active")
               .circle
                 i(class="weather-icon", data-icon="J")
               .title Morning
           li
-            a(href='#', data-time="afternoon")
+            a(href='#', data-input, data-type="time", data-value="afternoon")
               .circle
                 i(class="weather-icon", data-icon="B")
               .title Afternoon
           li
-            a(href='#', data-time="evening")
+            a(href='#', data-input, data-type="time", data-value="evening")
               .circle
                 i(class="weather-icon", data-icon="K")
               .title Evening
           li
-            a(href='#', data-time="night")
+            a(href='#', data-input, data-type="time", data-value="night")
               .circle
                 i(class="weather-icon", data-icon="C")
               .title Night
@@ -95,16 +95,23 @@ block content
         .clear
     .question-section(id="location")
       .question Where did it happen?
-      .controls
-        form
+      form(id="form-questions")
+        .controls
           label(for="form-address") Enter nearest address (leave blank to use current location)
           input(id="form-address", name="address", type="text", placeholder="E.g. Edenbridge Drive, Etobicoke ON")
-      .navigation
-        a(href='#', data-move-to="#time", class="button button-previous", title="Previous")
-          i(class="fa fa-chevron-left")
-        a(href='#', data-submit, class="button button-next button-submit", title="Submit")
-          i(class="fa fa-check")
-          != "&nbsp; File report"
-        .clear
+
+          input(id="form-mode", name="mode", type="hidden", value="cycling")
+          input(id="form-weather", name="weather", type="hidden", value="sunny")
+          input(id="form-time", name="time", type="hidden", value="morning")
+          input(id="form-latitude", name="latitude", type="hidden", value="43.144101")
+          input(id="form-longitude", name="longitude", type="hidden", value="-79.262555")
+
+        .navigation
+          a(href='#', data-move-to="#time", class="button button-previous", title="Previous")
+            i(class="fa fa-chevron-left")
+          button(class="button button-next button-submit", title="Submit")
+            i(class="fa fa-check")
+            != "&nbsp; File report"
+          .clear
 
 

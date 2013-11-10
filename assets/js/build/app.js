@@ -21368,5 +21368,40 @@ L.marker([43.156637, -79.239277], { icon: cyclingMarker }).addTo(map)
         }
       });
     });
+
+    // Questionairre
+    $('[data-input]').on('click', function() {
+      var $self = $(this)
+        , type  = $self.data('type')
+        , value = $self.data('value');
+
+      $('[data-type="'+type+'"]').removeClass('active');
+      $self.addClass('active');
+
+      $('#form-'+type).val(value);
+    });
+
+    $('#form-questions').on('submit', function() {
+      var request = $.ajax({
+        url: '/incidents',
+        type: 'POST',
+        data: {
+            address: $('#form-address').val()
+          , mode: $('#form-mode').val()
+          , weather: $('#form-weather').val()
+          , time: $('#form-time').val()
+          , latitude: $('#form-latitude').val()
+          , longitude: $('#form-longitude').val()
+        }
+      })
+      .done(function(data) {
+        console.log(data);
+      })
+      .fail(function(jqXHR, textStatus) {
+        alert('Failed to post data. Whoops.');
+      });
+
+      return false;
+    });
   });
 })(jQuery);
