@@ -21494,7 +21494,7 @@ map.addLayer(incidents);
 
               var iconType = walkMarker;
 
-              switch (data.mode) {
+              switch (incident.mode) {
                 case 'walking':
                   iconType = walkMarker;
                   break;
@@ -21506,11 +21506,13 @@ map.addLayer(incidents);
                   break;
               }
 
-              var location = L.marker(incident.coords[0], incident.coords[1], { icon: iconType })
+              if (incident.coords && incident.coords.length == 2) {
+                var location = L.marker([incident.coords[0], incident.coords[1]], { icon: iconType })
                 .bindPopup('<strong>Mode</strong>: '+incident.mode+'<br>\
                   <strong>Weather</strong>: ' + incident.weather+'<br>\
                   <strong>Time</strong>: '+incident.time+'<br>');
-              incidents.addLayer(location);
+                incidents.addLayer(location);
+              }
             }
           });
         }
