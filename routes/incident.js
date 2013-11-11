@@ -18,7 +18,7 @@ convertResult = function(result) {
 
 exports.list = function(req, res){
 	if (req.body.latitude && req.body.longitude) {
-		CarlinReport.find({geo: { $nearSphere: [req.body.latitude, req.body.longitude], $maxDistance: 0.01} }, function(err, data) {
+		CarlinReport.find({geo: { $nearSphere: [req.body.latitude, req.body.longitude], $maxDistance: 1.0} }, function(err, data) {
 			if (err) {
 				res.send(err);
 			}
